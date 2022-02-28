@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="accueil.css">
+		<meta charset="utf-8">
+		<script src="js/angular.min.js"></script>
+		<script src="js/ol.min.js"></script>
+		<script src="accueilApp.js"></script>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+ 		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+	</head>
+	<body ng-app="myApp" ng-controller="main">	
+		<div class="login-root">
+			<div class="box-root flex-flex flex-direction--column" style="min-height: 100vh;flex-grow: 1;">
+				<div class="loginbackground box-background--white padding-top--64">
+					<div class="loginbackground-gridContainer">
+					<div class="box-root flex-flex" style="grid-area: top / start / 8 / end;">
+						<div class="box-root" style="background-image: linear-gradient(white 0%, rgb(247, 250, 252) 33%); flex-grow: 1;"></div>
+					</div>
+					<div class="box-root flex-flex" style="grid-area: 4 / 2 / auto / 5;">
+						<div class="box-root box-divider--light-all-2 animationLeftRight tans3s" style="flex-grow: 1;"></div>
+					</div>
+					<div class="box-root flex-flex" style="grid-area: 6 / start / auto / 2;">
+						<div class="box-root box-background--blue800" style="flex-grow: 1;"></div>
+					</div>
+					<div class="box-root flex-flex" style="grid-area: 7 / start / auto / 4;">
+						<div class="box-root box-background--blue animationLeftRight" style="flex-grow: 1;"></div>
+					</div>
+					<div class="box-root flex-flex" style="grid-area: 8 / 4 / auto / 6;">
+						<div class="box-root box-background--gray100 animationLeftRight tans3s" style="flex-grow: 1;"></div>
+					</div>
+					<div class="box-root flex-flex" style="grid-area: 2 / 15 / auto / end;">
+						<div class="box-root box-background--cyan200 animationRightLeft tans4s" style="flex-grow: 1;"></div>
+					</div>
+					<div class="box-root flex-flex" style="grid-area: 3 / 14 / auto / end;">
+						<div class="box-root box-background--blue animationRightLeft" style="flex-grow: 1;"></div>
+					</div>
+					<div class="box-root flex-flex" style="grid-area: 4 / 17 / auto / 20;">
+						<div class="box-root box-background--gray100 animationRightLeft tans4s" style="flex-grow: 1;"></div>
+					</div>
+					<div class="box-root flex-flex" style="grid-area: 5 / 14 / auto / 17;">
+						<div class="box-root box-divider--light-all-2 animationRightLeft tans3s" style="flex-grow: 1;"></div>
+					</div>
+					</div>
+				</div>
+
+				<div class="header">
+					<nav class="navbar navbar-dark "  >
+						<div class="container-fluid">
+							<a class="navbar-brand"><h1>Signalement</h1></a>
+						</div>
+					</nav>
+				</div>
+
+		  <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
+				
+		
+				<div class="container">
+					<div class="left">
+						<div class="header">
+							<h2 class="animation a1">Recherche</h2>
+						</div>
+						<div class="form" style="padding: 10px;">
+						<label>Type</label>
+							<select class="form-field animation a3" ng-model="type" ng-options="x for x in typenames"> </select>
+							<br>
+							Date min : <input type="date" ng-model="datemin" class="form-field animation a3"> 
+							<br>
+							Date max : <input type="date" ng-model="datemax" class="form-field animation a3"> 
+							<br>
+						<label>Status</label>
+						<select class="form-field animation a3" ng-model="status" >
+							<option value="en cours">En cours</option>
+							<option value="termine">Terminé</option>
+						</select>
+						<br>
+							<button class="animation a6" ng-click="go()" >Rechercher</button>
+						</div>
+					</div>
+					<div class="result" >
+						<div class="header">
+							<h2 class="animation a1">Resultat</h2>
+						</div>
+						<table class="table " >
+							<thead>
+								<tr>
+									<th scope="col">Type</th>
+									<th scope="col">Date</th>
+									<th scope="col">couleur</th>
+									<th scope="col">action</th>
+								</tr>
+								</thead>
+								<tbody ng-repeat = "g in gogol">
+								<tr>
+									<td scope="row">{{g.nomtype}}</th>
+									<td>{{g.dateHeure}}</td>
+									<td><div  style="background-color: {{g.couleur}}; width:30px ; height:30px; border-radius:50% 50% 50% 50%;"></div></td>
+									<td><a href="fiche.html?id={{g.id}}" >Detail</a></td>
+								</tr>
+								
+								</tbody>
+						</table>	
+					</div>
+					<div id="right">
+						<div id="map" ></div>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>
+
+	</body>
+</html>
